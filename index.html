@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+    
+    <div id="app">
+
+            <div class="container-fluid mt-5 w-75">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-5">
+                            <div class="container-fluid">
+                                <div class="row align-items-center justify-content-center mb-2">
+                                    <div>Player</div>
+                                </div>
+                                <div class="row align-items-center justify-content-center">
+                                    <div class="w-100 text-center">
+                                        <div class="progress">
+                                        <div class="progress-bar bg-success" :style="{width: playerHealth + '%' }" role="progressbar">{{ playerHealth }} %</div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="row justify-content-center">VS</div>
+                        </div>
+                        <div class="col-5">
+                            <div class="row align-items-center justify-content-center mb-2">
+                                <div>Monster</div>
+                            </div> 
+                            <div class="row align-items-center justify-content-center">
+                                <div class="w-100 text-center">
+                                    <div class="progress">
+                                    <div class="progress-bar bg-success" :style="{width: monsterHealth + '%' }" role="progressbar">{{ monsterHealth }} %</div>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="container-fluid shadow p-3 mb-5 bg-white rounded mt-5 w-75 pt-4 pb-4">
+                    <div v-if="startOfGame" class="row start-game justify-content-center align-items center">
+                        <div class="col text-center">
+                            <div>
+                                <button @click="startOfGame = !startOfGame" class="btn btn-info w-25">Star a new game</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div v-else class="row game-buttons">
+                        <div class="col text-center">
+                            <button @click="regularAttack()" class="btn btn-danger w-75">Attack</button>
+                        </div>
+                        <div class="col text-center">
+                            <button @click="speacialAttack()" class="btn btn-warning w-75">Special attack</button>
+                        </div>
+                        <div class="col text-center">
+                            <button @click="playerHeal()" class="btn btn-success w-75">Heal</button>
+                        </div>
+                        <div class="col text-center">
+                            <button @click="newGame()" class="btn btn-dark w-75">Reset</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div v-if="showHistory" class="container-fluid shadow p-3 mb-5 bg-white rounded mt-5 w-75 pt-4 pb-4">
+                    <div class="row">
+                        <div class="col text-center">
+                            <h1>Game history</h1>
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="alert alert-primary" v-for="item, i in playerHistory.slice().reverse()">
+                                {{ item }}
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="alert alert-secondary" v-for="item, i in monsterHistory.slice().reverse()">
+                                {{ item }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
